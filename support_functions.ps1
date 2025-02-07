@@ -1,11 +1,13 @@
-﻿
+﻿$importSupportVarsFile = Join-Path -Path $PSScriptRoot -ChildPath "support_vars.ps1"
 
 function getAllShortcuts {
-
     
+    # executes the script in the current session
+    . $importSupportVarsFile
+
 
     # Define the starting directory (you can modify this as needed)
-    $startPath = "G:\SampleDesktop" 
+    $startPath = $workingEnvPathInfo.currentDrive + $workingEnvPathInfo.currentDir
 
     # Get all shortcuts (.lnk files) recursively
     $shortcuts = Get-ChildItem -Path $startPath -Filter "*.lnk" -Recurse -ErrorAction SilentlyContinue
@@ -16,12 +18,6 @@ function getAllShortcuts {
             # Use Shell COM object to extract shortcut details
             $shell = New-Object -ComObject WScript.Shell
             $shortcutObject = $shell.CreateShortcut($shortcut.FullName)
-        
-            #Write-Host $shortcut.Name, $shortcut.FullName, $shortcutObject.TargetPath
-
-            #$shortcutName = ($shortcut.Name).split("-",3)[0]
-            #Write-Host $shortcutName,$shortcutFullName
-
 
 
             [PSCustomObject]@{
@@ -38,42 +34,22 @@ function getAllShortcuts {
 
     #$shortcutDetails | Format-Table -AutoSize
     #$shortcutDetails | Export-Csv -Path "G:\Shortcuts2.csv" -NoTypeInformation
-    exportAllShortcutsToCSVFile -shortcutsObject $shortcutDetails
+    #exportAllShortcutsToCSVFile -shortcutsObject $shortcutDetails
+    printShortcutsToScreen -shortcutsObject $shortcutDetails
 }
 
-function exportAllShortcutsToCSVFile{
+
+function printShortcutsToScreen{
+    
     param (
-        [PSCustomObject]$shortcutsObject
+        [PSCustomObject]$InputObject
     )
 
-    $shortcutsObject | Export-Csv -Path "G:\Shortcuts3.csv" -NoTypeInformation
+    #Write-Host $InputObject.Name, 
+    $InputObject | Format-Table -AutoSize
 
 }
-
-#function printShortcutsToScreen{
-#    param (
-#        [PSCustomObject]$InputObject
-#    )
-#
-#    #Write-Host $InputObject.Name, 
-#    $InputObject | Format-Table -AutoSize
-#
-#}
-
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 
 getAllShortcuts
 
 
-
-
-#Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser
-
-# Display the results
-#$shortcutDetails | Format-Table -AutoSize
-
-#Write-Host $shortcutDetails
-
-
-# Optionally, save the results to a CSV file
-#$shortcutDetails | Export-Csv -Path "Shortcuts.csv" -NoTypeInformation

@@ -1,16 +1,26 @@
-﻿# This is going to be the controller of all the other processes
+﻿$importSupportVarsFile = Join-Path -Path $PSScriptRoot -ChildPath "support_vars.ps1"
+$importSupportFunctionsFile = Join-Path -Path $PSScriptRoot -ChildPath "support_functions.ps1"
+
+
+
+# This is going to be the controller of all the other processes
 
 # 1. Select menu 
 
 # Define the functions for each menu option
 function a {
     Write-Host "Function A is running..."
+    Write-Host $workingEnvPathInfo.currentDrive
+    test1
+    exit
     # Add your code for function A here
 }
 
-function b {
-    Write-Host "Function B is running..."
+function printShortcutsInfoToScreen {
+    #Write-Host "Function B is running..."
     # Add your code for function B here
+    printShortcutsToScreen
+    exit
 }
 
 function c {
@@ -42,16 +52,30 @@ function Show-Menu {
 
 # Main loop to handle user input
 while ($true) {
+    
+    # executes the script in the current session
+    . $importSupportVarsFile
+    . $importSupportFunctionsFile
+    
+    # runs menu
     Show-Menu
+
+    # prompts user to make a choice
     $choice = Read-Host "Enter your choice (1-5 or 'q' to quit)"
 
     switch ($choice) {
-        '1' { a }
-        '2' { b }
+        '1' { 
+                a  
+            }
+        '2' { 
+                printShortcutsInfoToScreen
+            }
         '3' { c }
         '4' { d }
         '5' { e }
-        'q' { exit }
+        'q' { 
+            Write-Host "......`nYou are now exiting the program, please re-run again!"
+            exit }
         default { Write-Host "Invalid selection, please try again." }
     }
     
