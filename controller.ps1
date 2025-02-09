@@ -16,9 +16,7 @@ function a {
     # Add your code for function A here
 }
 
-function printShortcutsInfoToScreen {
-    #Write-Host "Function B is running..."
-    # Add your code for function B here
+function printShortcutsInfoToScreen2 {
     printShortcutsToScreen
     exit
 }
@@ -43,7 +41,7 @@ function Show-Menu {
     Clear-Host
     Write-Host "Select an option from the menu:`n"
     Write-Host "1. Run function a"
-    Write-Host "2. Run function b"
+    Write-Host "2. Print shortcuts"
     Write-Host "3. Run function c"
     Write-Host "4. Run function d"
     Write-Host "5. Run function e"
@@ -54,11 +52,14 @@ function Show-Menu {
 while ($true) {
     
     # executes the script in the current session
-    . $importSupportVarsFile
+    #. $importSupportVarsFile
     . $importSupportFunctionsFile
     
     # runs menu
     Show-Menu
+
+    # unrestrict access for current user
+    setCurrentUserUnrestrictAccess
 
     # prompts user to make a choice
     $choice = Read-Host "Enter your choice (1-5 or 'q' to quit)"
@@ -68,7 +69,7 @@ while ($true) {
                 a  
             }
         '2' { 
-                printShortcutsInfoToScreen
+                printShortcutsInfoToScreen2 
             }
         '3' { c }
         '4' { d }
