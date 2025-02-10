@@ -21,9 +21,8 @@ function printShortcutsInfoToScreen2 {
     exit
 }
 
-function c {
-    Write-Host "Function C is running..."
-    # Add your code for function C here
+function exportShortCutsToCSV {
+    
 }
 
 function d {
@@ -42,7 +41,7 @@ function Show-Menu {
     Write-Host "Select an option from the menu:`n"
     Write-Host "1. Run function a"
     Write-Host "2. Print shortcuts"
-    Write-Host "3. Run function c"
+    Write-Host "3. Export shortcuts to a CSV file"
     Write-Host "4. Run function d"
     Write-Host "5. Run function e"
     Write-Host "q. Quit`n"
@@ -71,7 +70,9 @@ while ($true) {
         '2' { 
                 printShortcutsInfoToScreen2 
             }
-        '3' { c }
+        '3' {
+                exportShortCutsToCSV
+            }
         '4' { d }
         '5' { e }
         'q' { 
