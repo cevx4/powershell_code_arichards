@@ -46,7 +46,7 @@ function exportAllShortcutsToCSVFile{
         [PSCustomObject]$shortcutsObject
     )
 
-    $shortcutsObject | Export-Csv -Path "G:\Shortcuts3.csv" -NoTypeInformation
+    $shortcutsObject | Export-Csv -Path "G:\mrcevallosgdrive\Shortcuts3.csv" -NoTypeInformation
 
 }
 

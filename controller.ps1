@@ -1,4 +1,4 @@
-﻿$importSupportVarsFile = Join-Path -Path $PSScriptRoot -ChildPath "support_vars.ps1"
+﻿#$importSupportVarsFile = Join-Path -Path $PSScriptRoot -ChildPath "support_vars.ps1"
 $importSupportFunctionsFile = Join-Path -Path $PSScriptRoot -ChildPath "support_functions.ps1"
 
 
@@ -16,33 +16,34 @@ function a {
     # Add your code for function A here
 }
 
-function printShortcutsInfoToScreen2 {
+function printShortcutsInfoToScreen {
     printShortcutsToScreen
     exit
 }
 
 function exportShortCutsToCSV {
-    
+    #promptUser "Are you sure you want to export shortcuts?"
+    exportShortcutsToCSVfile
+    exit
 }
 
-function d {
-    Write-Host "Function D is running..."
-    # Add your code for function D here
+function createShortcutsFromCSV {
+   createShortcutsFromSelectedCSVFile
+   exit
 }
 
-function e {
-    Write-Host "Function E is running..."
-    # Add your code for function E here
+function getShortcutsFromADirectory {
+    # Choose directory
 }
 
 # Function to display the menu
 function Show-Menu {
     Clear-Host
     Write-Host "Select an option from the menu:`n"
-    Write-Host "1. Run function a"
-    Write-Host "2. Print shortcuts"
-    Write-Host "3. Export shortcuts to a CSV file"
-    Write-Host "4. Run function d"
+    Write-Host "1. Print shortcuts from a directory - wrkn"
+    Write-Host "2. Export shortcuts to a CSV file - not wrkn properly"
+    Write-Host "3. Create shortcuts from a CSV file - not wrkn properly"
+    Write-Host "4. Get shortcuts from a directory"
     Write-Host "5. Run function e"
     Write-Host "q. Quit`n"
 }
@@ -50,8 +51,7 @@ function Show-Menu {
 # Main loop to handle user input
 while ($true) {
     
-    # executes the script in the current session
-    #. $importSupportVarsFile
+    # executes the imported script in the current session
     . $importSupportFunctionsFile
     
     # runs menu
@@ -64,16 +64,10 @@ while ($true) {
     $choice = Read-Host "Enter your choice (1-5 or 'q' to quit)"
 
     switch ($choice) {
-        '1' { 
-                a  
-            }
-        '2' { 
-                printShortcutsInfoToScreen2 
-            }
-        '3' {
-                exportShortCutsToCSV
-            }
-        '4' { d }
+        '1' { printShortcutsInfoToScreen }
+        '2' { exportShortCutsToCSV }
+        '3' { createShortcutsFromCSV }
+        '4' { getShortcutsFromADirectory }
         '5' { e }
         'q' { 
             Write-Host "......`nYou are now exiting the program, please re-run again!"

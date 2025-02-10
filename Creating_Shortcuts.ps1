@@ -19,17 +19,9 @@
         $Shortcut = $Shell.CreateShortcut($ShortcutTargetPath)
         $Shortcut.TargetPath = $ShortcutTargetSourceLocation
 
-        if ($Description) {
-            $Shortcut.Description = $Description
+        if ($DescriptionComments -ne $null) {
+            $Shortcut.Description = $DescriptionComments
         }
-
-        #if ($WorkingDirectory) {
-        #    $Shortcut.WorkingDirectory = $WorkingDirectory
-        #}
-
-        #if ($IconLocation) {
-        #    $Shortcut.IconLocation = $IconLocation
-        #}
 
         # Save the shortcut
         $Shortcut.Save()
@@ -42,8 +34,8 @@
 
 
 Create-Shortcut `
-    -ShortcutTargetPath "G:\TargetDesktop\Monique4.lnk" `
-    -ShortcutTargetSourceLocation "G:\stora\Monique" `
+    -ShortcutTargetPath "G:\mrcevallosgdrive\Monique4.lnk" `
+    -ShortcutTargetSourceLocation "C:\Users\MCXIV\Pictures" `
     -DescriptionComments "Launch MyApp"
     
     
